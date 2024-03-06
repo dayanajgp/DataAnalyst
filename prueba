@@ -1,0 +1,19 @@
+function listFilesInFolder() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Hoja 1');
+  var folder = DriveApp.getFoldersByName('Curso Google Sheets').next();
+  var files = folder.getFiles();
+  var row = 1;
+  
+  while (files.hasNext()) {
+    var file = files.next();
+    var url = file.getUrl();
+    var name = file.getName();
+    var copyUrl = url + "/copy";
+    
+    // Asegúrate de que la primera fila comience limpia o ajusta 'row' según sea necesario.
+    sheet.getRange(row, 1).setValue(url);
+    sheet.getRange(row, 2).setValue(copyUrl);
+    sheet.getRange(row, 3).setValue(name);
+    row++;
+  }
+}
